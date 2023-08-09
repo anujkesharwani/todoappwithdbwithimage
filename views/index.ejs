@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>ToDo</title>
+  </head>
+  <body>
+    <div class="todo-container">
+      <div class="todo-left">
+        <h1>Task List ........</h1>
+        <ul class="todo-list">
+          <% for (const todo of todos) { %>
+            <li>
+                <img src="/uploads/<%= todo.taskimage %>"  height="100" width="100">
+                <!-- <%= todo.taskimage %> -->
+       
+                <%= todo.tasktext %>
+                 <!-- <input type="checkbox" name="status" value="<%= todo._id %>"> -->
+                <!-- <a href="/<%= todo.id %>"   class="todo-delete"><i class="fa fa-trash"></i></a> -->
+                <button  class="todo-delete <%= todo.id %>">delete</button>
+            </li>
+            <% } %>
+        </ul>
+      </div>
+      <div class="todo-right">
+        <div class="right-column">
+          <h1>Task Form .......</h1>
+          <form id="task-input-form" action="/" method="post" enctype="multipart/form-data" >
+            TaskBox &nbsp;<input type="text" name="taskText" id="task-input" required /><br><br>
+            <input type="file" required name="image" id="image-input" /><br><br>
+            <button id="submit-button" type="submit">Submit</button>
+          </form>
+      </div>
+    </div>
+    <script>
+      const deletButton=document.querySelectorAll(".todo-delete");
+      deletButton.forEach((button,i) =>{
+          button.addEventListener("click", () =>{
+              const endpoint=`/${button.classList[1]}`
+              fetch(endpoint,{
+                   method: "DELETE"
+              })
+              window.location.href="/"
+          })
+      })
+  </script>
+
+    
+  </body>
+</html>
